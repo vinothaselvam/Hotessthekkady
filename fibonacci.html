@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fibonacci Sequence</title>
+</head>
+<body>
+    <h1>Fibonacci Sequence Generator</h1>
+    <form method="post" action="">
+        Enter a number: <input type="number" name="num" required>
+        <input type="submit" value="Generate">
+    </form>
+
+    <?php
+    function isFibonacci($n)
+    {
+        // Function to check if a number is part of the Fibonacci sequence
+        $a = 0;
+        $b = 1;
+        while ($a < $n) {
+            $temp = $a;
+            $a = $b;
+            $b = $temp + $b;
+        }
+        return ($a == $n);
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $num = $_POST["num"];
+        $sequence = [];
+        $a = 0;
+        $b = 1;
+
+        while ($a <= $num) {
+            if (isFibonacci($a)) {
+                $sequence[] = $a;
+            }
+            $temp = $a;
+            $a = $b;
+            $b = $temp + $b;
+        }
+
+        if (in_array($num, $sequence)) {
+            echo "Given number Is Fibonacci: Yes<br>";
+        } else {
+            echo "Given number Is Fibonacci: No<br>";
+        }
+
+        echo "Sequence: " . implode(', ', $sequence);
+    }
+    ?>
+
+</body>
+</html>
